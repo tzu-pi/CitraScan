@@ -43,7 +43,7 @@ fun ScanGuideModal(
                 // Header with close
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        text = stringResource(R.string.guide_title),
+                        text = stringResource(R.string.guide_tooltip_title),
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.ExtraBold,
                             letterSpacing = 0.5.sp

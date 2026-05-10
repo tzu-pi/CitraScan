@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.citrascan.app.ui.screens.history.HistoryScreen
 import com.citrascan.app.ui.screens.home.HomeScreen
 import com.citrascan.app.ui.screens.result.ResultScreen
+import com.citrascan.app.ui.screens.guide.GuideScreen
 import com.citrascan.app.ui.screens.scanner.ScannerScreen
 import com.citrascan.app.ui.screens.splash.SplashScreen
 
@@ -20,10 +21,12 @@ object Routes {
     const val SPLASH = "splash"
     const val HOME = "home"
     const val SCANNER = "scanner"
-    const val RESULT = "result/{diseaseKey}"
     const val HISTORY = "history"
+    const val RESULT = "result/{diseaseKey}"
+    const val GUIDE = "guide/{diseaseKey}"
 
     fun result(diseaseKey: String) = "result/$diseaseKey"
+    fun guide(diseaseKey: String) = "guide/$diseaseKey"
 }
 
 /**
@@ -64,7 +67,7 @@ fun CitraScanNavGraph(
                 onToggleTheme = onToggleTheme,
                 onNavigateToScanner = { navController.navigate(Routes.SCANNER) },
                 onNavigateToHistory = { navController.navigate(Routes.HISTORY) },
-                onNavigateToResult = { key -> navController.navigate(Routes.result(key)) }
+                onNavigateToGuide = { key -> navController.navigate(Routes.guide(key)) }
             )
         }
 
@@ -106,6 +109,21 @@ fun CitraScanNavGraph(
                 },
                 onNavigateToScanner = { navController.navigate(Routes.SCANNER) },
                 onNavigateToResult = { key -> navController.navigate(Routes.result(key)) }
+            )
+        }
+        composable(
+            route = Routes.GUIDE,
+            arguments = listOf(navArgument("diseaseKey") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val diseaseKey = backStackEntry.arguments?.getString("diseaseKey") ?: ""
+            GuideScreen(
+                diseaseKey = diseaseKey,
+                onNavigateBack = { navController.popBackStack() },
+                onScanNow = {
+                    navController.navigate(Routes.SCANNER) {
+                        popUpTo(Routes.HOME)
+                    }
+                }
             )
         }
     }

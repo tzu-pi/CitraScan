@@ -30,7 +30,7 @@ fun HomeScreen(
     onToggleTheme: () -> Unit,
     onNavigateToScanner: () -> Unit,
     onNavigateToHistory: () -> Unit,
-    onNavigateToResult: (String) -> Unit,
+    onNavigateToGuide: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -249,7 +249,7 @@ fun HomeScreen(
                         name = disease.name,
                         subtitle = disease.subtitle,
                         dotColor = disease.dotColor,
-                        onClick = { onNavigateToResult(disease.key) }
+                        onClick = { onNavigateToGuide(disease.key) }
                     )
                     if (index < state.detectableDiseases.lastIndex) {
                         HorizontalDivider(

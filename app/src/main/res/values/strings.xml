@@ -42,7 +42,7 @@
     <string name="scanner_toggle_leaf">Leaf</string>
 
     <!-- Guide Tooltip -->
-    <string name="guide_title">Scanning Guide</string>
+    <string name="guide_tooltip_title">Scanning Guide</string>
     <string name="guide_step_1">Center the leaf or fruit within the reticle corners.</string>
     <string name="guide_step_2">Ensure good natural lighting; avoid direct flash.</string>
     <string name="guide_step_3">Hold steady and tap the shutter to start detection.</string>
@@ -112,4 +112,8 @@
     <string name="bottom_home">Home</string>
     <string name="bottom_scan">Scan</string>
     <string name="bottom_history">History</string>
+    <!-- Guide Screen -->
+    <string name="guide_title">Disease information</string>
+    <string name="guide_prevention_label">PREVENTION &amp; CONTROL</string>
+    <string name="guide_scan_now">Scan plant now</string>
 </resources>

@@ -28,7 +28,7 @@ class YoloPostProcessor @Inject constructor(
 
     companion object {
         /** Minimum confidence to keep a detection. */
-        const val CONFIDENCE_THRESHOLD = 0.25f
+        const val CONFIDENCE_THRESHOLD = 0.45f
         /** IoU threshold for NMS. */
         const val IOU_THRESHOLD = 0.45f
         /** Number of classes in the model. */

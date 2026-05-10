@@ -63,11 +63,27 @@ class DetectionEngine @Inject constructor(
 
     /**
      * Determines the primary disease from a list of detections.
-     * Uses the highest-confidence detection. Returns "healthy" if no detections.
+     * Uses the highest-confidence detection. Returns "healthy" if no detections
+     * or if the detections are likely false positives (low confidence or invalid size).
      */
     private fun determinePrimaryDisease(detections: List<Detection>): String {
         if (detections.isEmpty()) return "healthy"
-        val best = detections.maxByOrNull { it.confidence } ?: return "healthy"
+
+        // Filter for detections that meet a stricter confidence threshold (e.g., 0.55)
+        // and have a reasonable size (not too tiny, not covering the entire image)
+        val validDetections = detections.filter { det ->
+            val box = det.boundingBox
+            val area = (box.x2 - box.x1) * (box.y2 - box.y1)
+            
+            // Sanity check: 
+            // 1. Confidence > 0.55
+            // 2. Area is between 0.5% and 90% of the image
+            det.confidence > 0.55f && area > 0.005f && area < 0.90f
+        }
+
+        if (validDetections.isEmpty()) return "healthy"
+
+        val best = validDetections.maxByOrNull { it.confidence } ?: return "healthy"
         return diseaseRepository.classIndexToKey(best.classIndex)
     }
 }
